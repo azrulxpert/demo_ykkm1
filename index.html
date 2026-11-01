@@ -1493,27 +1493,35 @@
         <div>
           <div class="flex items-center space-x-2">
             <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full uppercase flex items-center">
-              <i class="fa-brands fa-google-drive mr-1.5 text-emerald-600"></i> Google Drive Cloud Repository
+              <i class="fa-brands fa-google-drive mr-1.5 text-emerald-600"></i> Simulasi Repositori Dokumen
             </span>
-            <span class="text-xs text-slate-400">| Pengkatalogan Berasaskan No. Kad Pengenalan</span>
+            <span class="text-xs text-slate-400">| Akses mengikut peranan dan negeri</span>
           </div>
-          <h2 class="font-heading text-xl sm:text-2xl font-bold text-slate-800 mt-1">Struktur Folder Storan Google Drive e-YKKM</h2>
+          <h2 class="font-heading text-xl sm:text-2xl font-bold text-slate-800 mt-1">Dokumen Permohonan Negeri</h2>
           <p class="text-xs text-sm text-slate-500">
-            Setiap dokumen dimuat naik diasingkan secara automatik ke dalam subfolder No. KP masing-masing dengan kawalan saiz maksimum 2MB.
+            Senarai dokumen simulasi yang dibenarkan untuk akaun semasa. Dokumen sebenar belum disambungkan ke Google Drive.
           </p>
         </div>
 
         <div class="flex items-center space-x-2 text-xs text-slate-600 bg-slate-50 border border-slate-200 px-3 py-2 rounded-xl">
           <i class="fa-solid fa-hard-drive text-brand-600"></i>
-          <span>Penggunaan Storan: <strong>14.2 GB / 2 TB (Google Workspace)</strong></span>
+          <span><strong>Storan demo tempatan (localStorage)</strong></span>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-3 min-h-[450px]">
         <div class="p-4 border-r border-slate-200 bg-slate-50/70 space-y-3">
           <div class="flex items-center justify-between text-xs font-bold text-slate-700 px-2">
-            <span>Direktori Folder No. KP</span>
+            <span>Senarai Folder Permohonan</span>
             <span class="text-[10px] text-slate-400">e-YKKM_Cloud</span>
+          </div>
+          <div class="space-y-2">
+            <label for="f34-search" class="block text-[11px] font-bold text-slate-600">Cari ID permohonan / nama</label>
+            <input id="f34-search" type="search" oninput="renderDriveTree()" placeholder="Cari rekod..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs bg-white focus:ring-2 focus:ring-blue-300">
+            <label for="f34-type" class="block text-[11px] font-bold text-slate-600">Jenis permohonan</label>
+            <select id="f34-type" onchange="renderDriveTree()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs bg-white"><option value="ALL">Semua Jenis</option><option value="pendaftaran">Pendaftaran</option><option value="tuntutan">e-Tuntutan</option></select>
+            <div id="f34-state-wrap" class="hidden"><label for="f34-state" class="block text-[11px] font-bold text-slate-600 mb-1">Negeri</label><select id="f34-state" onchange="renderDriveTree()" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs bg-white"></select></div>
+            <div class="flex justify-between gap-2 items-center"><span id="f34-folder-count" class="text-[11px] text-slate-500"></span><button type="button" onclick="resetDriveFilters()" class="text-[11px] font-bold text-blue-700 hover:underline">Set Semula</button></div>
           </div>
           <div class="space-y-1 text-xs" id="drive-folder-list">
           </div>
@@ -1525,20 +1533,20 @@
               <i class="fa-brands fa-google-drive text-emerald-600"></i>
               <span>e-YKKM_Cloud</span>
               <span>/</span>
-              <span id="active-folder-name" class="font-bold text-slate-800">Pilih Sub-Folder No. IC</span>
+              <span id="active-folder-name" class="font-bold text-slate-800">Pilih folder permohonan</span>
             </div>
 
             <div id="drive-file-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div class="col-span-2 text-center py-12 text-slate-400">
                 <i class="fa-regular fa-folder-open text-4xl mb-2 text-slate-300"></i>
-                <p class="text-xs">Sila pilih mana-mana sub-folder No. IC di sebelah kiri untuk melihat fail lampiran.</p>
+                <p class="text-xs">Pilih folder permohonan di sebelah kiri untuk melihat lampiran yang dibenarkan.</p>
               </div>
             </div>
           </div>
 
           <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-            <span><i class="fa-solid fa-lock text-amber-500 mr-1"></i> Akses Terhad: Urusetia YKKM Sah Beremel Rasmi</span>
-            <span>Versi Dokumen: Google Drive File API v3</span>
+            <span><i class="fa-solid fa-lock text-amber-500 mr-1"></i> Paparan mengikut peranan (simulasi)</span>
+            <span>Mod Demonstrasi: Tiada sambungan Google Drive API</span>
           </div>
         </div>
       </div>
@@ -3029,8 +3037,9 @@ function configureUrusetiaStateFilter() {
 
                   <div class="flex justify-between items-start gap-3 relative z-10">
                     <div class="flex items-center space-x-3">
-                      <div class="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center text-brand-800 text-xl font-bold shrink-0 shadow-sm">
-                        <i class="fa-solid fa-shield-halved text-amber-500"></i>
+                      <div class="w-12 h-12 rounded-xl bg-white/95 p-1 flex items-center justify-center shrink-0 shadow-md border border-amber-300/70" title="Logo YKKM">
+                        <img src="logo_ykkm.jpg" alt="Logo Yayasan Kebajikan Kastam Malaysia" class="w-full h-full object-contain" onerror="this.classList.add('hidden');this.nextElementSibling.classList.remove('hidden');">
+                        <i class="fa-solid fa-shield-halved text-amber-500 text-xl hidden" aria-hidden="true"></i>
                       </div>
                       <div>
                         <p class="text-[10px] uppercase tracking-widest text-amber-300 font-bold">Yayasan Kebajikan Kastam Malaysia</p>
@@ -3748,7 +3757,7 @@ rec.decisionHistory.push({
           </div>
           <div>
             <h4 class="font-heading font-bold text-slate-900 text-base">${fileName}</h4>
-            <p class="text-xs text-slate-400 mt-0.5">Dokumen Simulasi Google Drive e-YKKM (Tersulit 256-Bit SSL)</p>
+            <p class="text-xs text-slate-400 mt-0.5">Pratonton simulasi e-YKKM — bukan dokumen Google Drive sebenar</p>
           </div>
           <div class="bg-slate-100 rounded-xl p-6 border border-slate-200 text-xs text-slate-600 space-y-2 text-left">
             <div class="flex justify-between border-b border-slate-200 pb-1.5">
@@ -3774,83 +3783,117 @@ rec.decisionHistory.push({
       `);
     }
 
-    function renderDriveTree() {
+    // FASA 3.4: paparan dokumen mengikut skop peranan (simulasi localStorage).
+    function getDriveScopedRecords() {
+      const session = getActiveSession();
+      if (!session || session.role !== 'urusetia') return [];
       const db = getDatabase();
-      const folderListEl = document.getElementById('drive-folder-list');
-      if (!folderListEl) return;
-      const uniqueICs = [...new Set(db.records.map(r => r.ic))];
-
-      let listHtml = '';
-      uniqueICs.forEach(ic => {
-        const relatedRecords = db.records.filter(r => r.ic === ic);
-        const ownerName = relatedRecords[0]?.name || 'Anggota Kastam (Demo)';
-
-        listHtml += `
-          <div onclick="selectDriveFolder('${ic}')" id="drive-folder-${ic}"
-            class="p-2.5 rounded-xl cursor-pointer hover:bg-white transition flex items-center justify-between border border-transparent hover:border-slate-200">
-            <div class="flex items-center space-x-2 truncate">
-              <i class="fa-solid fa-folder text-amber-400 text-base shrink-0"></i>
-              <div class="truncate">
-                <p class="font-mono font-bold text-slate-800 truncate">${ic}</p>
-                <p class="text-[10px] text-slate-400 truncate">${ownerName}</p>
-              </div>
-            </div>
-            <span class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.5 rounded font-bold">${relatedRecords.length} rekod</span>
-          </div>
-        `;
+      const isHQ = session.state === 'Ibu Pejabat Putrajaya';
+      const state = document.getElementById('f34-state')?.value || 'ALL';
+      const type = document.getElementById('f34-type')?.value || 'ALL';
+      const q = (document.getElementById('f34-search')?.value || '').trim().toLocaleLowerCase('ms');
+      return db.records.filter(r => {
+        const currentState = getRecordState(r, db);
+        if (!isHQ && currentState !== session.state) return false;
+        if (isHQ && state !== 'ALL' && currentState !== state) return false;
+        if (type !== 'ALL' && r.type !== type) return false;
+        if (q && ![r.id, r.name].some(v => String(v || '').toLocaleLowerCase('ms').includes(q))) return false;
+        return true;
       });
+    }
 
-      folderListEl.innerHTML = listHtml;
-      if (uniqueICs.length > 0) selectDriveFolder(uniqueICs[0]);
+    function resetDriveFilters() {
+      for (const id of ['f34-search','f34-type','f34-state']) {
+        const el = document.getElementById(id);
+        if (el) el.value = id === 'f34-search' ? '' : 'ALL';
+      }
+      renderDriveTree();
+    }
+
+    function renderDriveTree() {
+      const session = getActiveSession();
+      const folderList = document.getElementById('drive-folder-list');
+      const files = document.getElementById('drive-file-list');
+      if (!folderList || !files) return;
+      const isHQ = session?.role === 'urusetia' && session.state === 'Ibu Pejabat Putrajaya';
+      const stateWrap = document.getElementById('f34-state-wrap');
+      if (stateWrap) stateWrap.classList.toggle('hidden', !isHQ);
+      const stateSelect = document.getElementById('f34-state');
+      if (isHQ && stateSelect && !stateSelect.options.length) {
+        stateSelect.add(new Option('Seluruh Negara','ALL'));
+        YKKM_STATES.forEach(state => stateSelect.add(new Option(state,state)));
+      }
+      const title = document.querySelector('#view-drive h2');
+      if (title) title.textContent = isHQ ? 'Repositori Dokumen Nasional' : 'Dokumen Permohonan Negeri';
+      const db = getDatabase();
+      const records = getDriveScopedRecords();
+      const folders = [...new Set(records.map(r => String(r.ic || '')).filter(Boolean))];
+      document.getElementById('f34-folder-count').textContent = `${folders.length} folder · ${records.length} rekod`;
+      folderList.innerHTML = folders.length ? folders.map((ic, index) => {
+        const own = records.filter(r => String(r.ic) === ic);
+        const name = escapeHtml(own[0]?.name || 'Pemohon');
+        const state = escapeHtml(getRecordState(own[0], db) || '-');
+        const safeRef = escapeHtml(own[0]?.id || '-');
+        return `<button type="button" data-f34-folder="${index}" onclick="selectDriveFolderByIndex(${index})" class="w-full text-left p-3 rounded-xl hover:bg-white border border-transparent hover:border-slate-200 transition flex justify-between gap-2 items-center">
+          <span class="flex gap-2 items-center min-w-0"><i class="fa-solid fa-folder text-amber-500"></i><span class="min-w-0"><span class="block text-xs font-bold text-slate-800 truncate">${name}</span><span class="block text-[10px] text-slate-500 truncate">${safeRef} · ${state}</span></span></span><span class="text-[10px] bg-slate-200 rounded px-1.5 py-0.5">${own.length}</span></button>`;
+      }).join('') : '<div class="text-xs text-slate-500 p-4 text-center">Tiada folder dalam skop dan penapis dipilih.</div>';
+      const selected = folders.includes(window.f34SelectedIC) ? window.f34SelectedIC : folders[0];
+      if (selected) selectDriveFolder(selected);
+      else {
+        window.f34SelectedIC = null;
+        document.getElementById('active-folder-name').textContent = 'Tiada folder dipilih';
+        files.innerHTML = '<div class="col-span-2 text-xs text-center text-slate-500 py-10">Tiada dokumen untuk dipaparkan.</div>';
+      }
+    }
+
+    function selectDriveFolderByIndex(index) {
+      const folders = [...new Set(getDriveScopedRecords().map(r => String(r.ic || '')).filter(Boolean))];
+      if (Number.isInteger(index) && index >= 0 && index < folders.length) selectDriveFolder(folders[index]);
     }
 
     function selectDriveFolder(ic) {
-      const db = getDatabase();
-      const related = db.records.filter(r => r.ic === ic);
-      const activeFolderName = document.getElementById('active-folder-name');
-      const fileListContainer = document.getElementById('drive-file-list');
-
-      document.querySelectorAll('#drive-folder-list > div').forEach(d => d.classList.remove('bg-white', 'border-slate-300', 'shadow-sm'));
-      const activeEl = document.getElementById('drive-folder-' + ic);
-      if (activeEl) activeEl.classList.add('bg-white', 'border-slate-300', 'shadow-sm');
-
-      if (activeFolderName) activeFolderName.innerText = ic + ` (${related[0]?.name || ''})`;
-
-      let allFiles = [];
-      related.forEach(rec => {
-        if (rec.files) {
-          rec.files.forEach(f => allFiles.push({ ...f, refId: rec.id, category: rec.categoryLabel }));
-        }
-      });
-
-      if (!fileListContainer) return;
-
-      if (allFiles.length === 0) {
-        fileListContainer.innerHTML = `<div class="col-span-2 text-center py-8 text-slate-400 text-xs">Tiada fail dalam subfolder ini.</div>`;
+      const related = getDriveScopedRecords().filter(r => String(r.ic) === String(ic));
+      const files = document.getElementById('drive-file-list');
+      if (!files) return;
+      if (!related.length) {
+        files.innerHTML = '<div class="col-span-2 text-xs text-center text-rose-600 py-8">Folder tidak tersedia untuk akaun atau penapis semasa.</div>';
         return;
       }
-
-      let filesHtml = '';
-      allFiles.forEach(file => {
-        filesHtml += `
-          <div class="bg-white p-4 rounded-xl border border-slate-200 hover:border-brand-400 transition flex flex-col justify-between space-y-3">
-            <div class="flex items-start space-x-3">
-              <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-lg shrink-0"><i class="fa-solid fa-file-pdf"></i></div>
-              <div class="overflow-hidden">
-                <p class="font-bold text-xs text-slate-800 truncate" title="${file.name}">${file.name}</p>
-                <p class="text-[10px] text-slate-400 mt-0.5">Rujukan: <span class="font-mono text-brand-700">${file.refId}</span></p>
-                <span class="inline-block mt-1 text-[9px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">${file.category}</span>
-              </div>
-            </div>
-            <div class="flex items-center justify-between text-[11px] pt-2 border-t border-slate-100">
-              <span class="text-slate-400">${file.size}</span>
-              <button onclick="previewSimulatedDocument('${file.name}')" class="text-brand-700 hover:underline font-semibold flex items-center"><i class="fa-solid fa-eye mr-1"></i> Buka</button>
-            </div>
-          </div>
-        `;
+      window.f34SelectedIC = String(ic);
+      const folderNames = [...new Set(getDriveScopedRecords().map(r => String(r.ic || '')).filter(Boolean))];
+      document.querySelectorAll('[data-f34-folder]').forEach((el,i) => {
+        el.classList.toggle('bg-white', folderNames[i] === String(ic));
+        el.classList.toggle('border-slate-300', folderNames[i] === String(ic));
       });
+      const label = document.getElementById('active-folder-name');
+      if (label) label.textContent = (related[0].name || 'Pemohon') + ' · ' + (getRecordState(related[0]) || '-');
+      const docs = related.flatMap(r => (Array.isArray(r.files) ? r.files : []).map(f => ({f, r})));
+      files.innerHTML = docs.length ? docs.map(({f,r}, docIndex) => {
+        const name = escapeHtml(f.name || 'Dokumen');
+        const ref = escapeHtml(r.id || '-');
+        const category = escapeHtml(r.categoryLabel || (r.type === 'pendaftaran' ? 'Pendaftaran' : 'e-Tuntutan'));
+        const size = escapeHtml(f.size || '-');
+        const safeId = JSON.stringify(String(r.id || '')).replace(/</g,'\\u003c');
+        const safeName = JSON.stringify(String(f.name || '')).replace(/</g,'\\u003c');
+        return `<div class="bg-white/80 p-4 rounded-xl border border-slate-200 flex flex-col justify-between gap-3">
+          <div class="flex items-start gap-3"><div class="w-10 h-10 bg-rose-50 text-rose-600 rounded-lg flex items-center justify-center"><i class="fa-solid fa-file-lines"></i></div><div class="min-w-0"><p class="font-bold text-xs text-slate-800 break-words">${name}</p><p class="text-[10px] text-slate-500 mt-1">Rujukan: ${ref}</p><span class="text-[10px] text-slate-500">${category}</span></div></div>
+          <div class="flex justify-between gap-2 border-t border-slate-100 pt-2 text-[11px]"><span class="text-slate-500">${size}</span><button type="button" onclick="previewDriveDocumentByIndex(${docIndex})" class="font-bold text-blue-700 hover:underline"><i class="fa-solid fa-eye mr-1"></i>Pratonton</button></div>
+        </div>`;
+      }).join('') : '<div class="col-span-2 text-center text-slate-500 text-xs py-10">Tiada lampiran untuk folder ini.</div>';
+    }
 
-      fileListContainer.innerHTML = filesHtml;
+    function previewDriveDocumentByIndex(index) {
+      const docs = getDriveScopedRecords().filter(r => String(r.ic) === String(window.f34SelectedIC))
+        .flatMap(r => (Array.isArray(r.files) ? r.files : []).map(f => ({f, r})));
+      if (!Number.isInteger(index) || index < 0 || index >= docs.length) return;
+      previewDriveDocument(docs[index].r.id, docs[index].f.name);
+    }
+
+    function previewDriveDocument(recordId, fileName) {
+      const allowed = getDriveScopedRecords().some(r => String(r.id) === String(recordId) &&
+        Array.isArray(r.files) && r.files.some(f => String(f.name) === String(fileName)));
+      if (!allowed) { showToast('Dokumen tidak tersedia untuk akaun atau penapis semasa.', 'error'); return; }
+      previewSimulatedDocument(fileName);
     }
 
     function updatePendingBadge() {
